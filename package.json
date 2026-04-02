@@ -29,8 +29,5 @@
               "recharts": "^2.15.0",
               "embla-carousel-react": "^8.5.1",
               "react-hook-form": "^7.72.0",
-              "tailwind-merge": "^3.0.1",
-              "dotenv": "^16.4.7"
-      }
-}
-}
+              "tailwind-merge": "^3.0.1",             "dotenv": "^16.4.7"
+      }}
