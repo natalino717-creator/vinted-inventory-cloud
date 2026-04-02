@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model VintedItem {
+  id              Int       @id @default(autoincrement())
+  profilo         String    @default("Principale")
+  titolo          String
+  marca           String?
+  taglia          String?
+  costoAcquisto   Float     @map("costo_acquisto")
+  prezzoVendita   Float?    @map("prezzo_vendita")
+  ricavoEffettivo Float?    @map("ricavo_effettivo")
+  stato           String    @default("in_vendita")
+  dataInserimento DateTime  @default(now()) @map("data_inserimento")
+  dataVendita     DateTime? @map("data_vendita")
+  note            String?
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@map("vinted_items")
+}
