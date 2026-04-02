@@ -65,10 +65,10 @@ export const bonusCreateSchema = z
     sito: z.string().min(1, "Il sito è obbligatorio").max(100),
     tipo: z.string().min(1, "Il tipo è obbligatorio").max(50),
     importoBonus: z
-      .number({ error: "Inserisci un importo valido" })
+      .number({ invalid_type_error: "Inserisci un importo valido" })
       .min(0, "L'importo deve essere positivo"),
     importoDeposito: z
-      .number()
+      .number({ invalid_type_error: "Inserisci un importo valido" })
       .min(0, "L'importo deve essere positivo")
       .nullable()
       .optional(),
@@ -78,8 +78,8 @@ export const bonusCreateSchema = z
     dataScadenza: z.string().min(1, "La data di scadenza è obbligatoria"),
     stato: z.enum(STATI_BONUS).default("in_corso"),
     varianza: z.enum(TIPI_VARIANZA).default("Nessuna"),
-    costoProfilazione: z.number().optional().default(0),
-    profittoNetto: z.number().nullable().optional(),
+    costoProfilazione: z.number({ invalid_type_error: "Inserisci un importo valido" }).optional().default(0),
+    profittoNetto: z.number({ invalid_type_error: "Inserisci un importo valido" }).nullable().optional(),
     note: z.string().nullable().optional(),
   })
   .refine(
@@ -125,9 +125,11 @@ export const vintedCreateSchema = z.object({
   titolo: z.string().min(1, "Il titolo è obbligatorio").max(100),
   marca: z.string().max(50).nullable().optional(),
   taglia: z.string().max(10).nullable().optional(),
-  costoAcquisto: z.number({ error: "Inserisci un costo valido" }).min(0, "Il costo non può essere negativo"),
-  prezzoVendita: z.number().min(0, "Il prezzo non può essere negativo").nullable().optional(),
-  ricavoEffettivo: z.number().min(0, "Il ricavo non può essere negativo").nullable().optional(),
+  costoAcquisto: z.number({ invalid_type_error: "Inserisci un costo valido" }).min(0, "Il costo non può essere negativo"),
+  prezzoVendita: z.number({ invalid_type_error: "Inserisci un prezzo valido" }).min(0, "Il prezzo non può essere negativo").nullable().optional(),
+  speseSpedizione: z.number({ invalid_type_error: "Inserisci spese valide" }).min(0, "Le spese non possono essere negative").nullable().optional().default(0),
+  commissioni: z.number({ invalid_type_error: "Inserisci commissioni valide" }).min(0, "Le commissioni non possono essere negative").nullable().optional().default(0),
+  ricavoEffettivo: z.number({ invalid_type_error: "Inserisci un ricavo valido" }).min(0, "Il ricavo non può essere negativo").nullable().optional(),
   stato: z.enum(STATI_VINTED),
   dataInserimento: z.string().min(1, "La data di inserimento è obbligatoria"),
   dataVendita: z.string().nullable().optional(),
